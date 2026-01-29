@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>학교 급식 조회</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="header__inner">
+          <div class="brand">
+            <div class="brand__logo" aria-hidden="true">🍽</div>
+            <div class="brand__text">
+              <div class="brand__title">학교 급식 조회</div>
+              <div class="brand__sub">NEIS Open API 기반</div>
+            </div>
+          </div>
+          <div class="header__actions">
+            <button class="btn btn--ghost" id="btnReset" type="button" title="저장된 학교 초기화">
+              학교 초기화
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <section class="card">
+          <h2 class="card__title">1) 학교 선택</h2>
+          <p class="card__desc">
+            학교명을 검색하고 목록에서 선택하면, 시도교육청코드/학교코드를 자동으로 저장해요.
+          </p>
+
+          <div class="grid">
+            <label class="field">
+              <span class="field__label">학교명</span>
+              <div class="field__row">
+                <input
+                  class="input"
+                  id="schoolQuery"
+                  type="search"
+                  placeholder="예: 서울고등학교"
+                  autocomplete="off"
+                />
+                <button class="btn" id="btnSearch" type="button">검색</button>
+              </div>
+              <span class="field__hint">검색어가 짧으면 결과가 많을 수 있어요.</span>
+            </label>
+          </div>
+
+          <div class="results" id="schoolResults" aria-live="polite"></div>
+
+          <div class="selected" id="selectedSchoolWrap">
+            <div class="selected__label">선택된 학교</div>
+            <div class="selected__value" id="selectedSchoolValue">-</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2 class="card__title">2) 급식 조회</h2>
+          <p class="card__desc">
+            날짜를 선택하고 조회하면, 해당 날짜의 급식(조식/중식/석식)을 정리해서 보여줘요.
+          </p>
+
+          <div class="grid grid--2">
+            <label class="field">
+              <span class="field__label">날짜</span>
+              <input class="input" id="dateInput" type="date" />
+            </label>
+            <label class="field">
+              <span class="field__label">조회 범위</span>
+              <select class="input" id="rangeSelect">
+                <option value="day" selected>선택한 날짜(1일)</option>
+                <option value="week">선택한 날짜 포함 7일</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn--primary" id="btnFetchMeals" type="button">급식 조회</button>
+            <button class="btn btn--ghost" id="btnToday" type="button">오늘로</button>
+          </div>
+
+          <div class="status" id="status" aria-live="polite"></div>
+          <div class="meals" id="meals"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <div class="muted">
+            데이터 제공: NEIS Open API · 주말/방학/학교 사정에 따라 급식 정보가 없을 수 있어요.
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
+
